@@ -9,7 +9,6 @@ const tapped = source.pipe(
     tap(t => console.log('tapped: ', t)),
     tap(async v => {
         await Promise.resolve();
-
     })
 )
 
