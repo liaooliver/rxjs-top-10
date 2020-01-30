@@ -13,7 +13,6 @@ const basic = Observable.create(obs => {
 // 建立訂閱
 basic.subscribe(v => console.log(v));
 
-
 const obsOf = of('observable');
 obsOf.subscribe(v => console.log('obsOf: ' ,v))
 
