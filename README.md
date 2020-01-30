@@ -17,18 +17,18 @@
     - Cold Observable 就是指每次訂閱結果都是獨立的執行，不會互相影響。
     - Hot Observable 則是共用的訂閱，訂閱結果的值都是相同的。
 
-# 3 Subjects
+# 3. Subjects
     - 可以用 Subject 替代 HOT Observable。
     - Subject
     - BehaviorSubject
 
-# 4 OPERATORS
+# 4. OPERATORS
     - 利用運算子組合或是轉換是資料流
 
-# 5 TAP
+# 5. TAP
     - tap 運算子不會對元素產生任何影響，實務上經常用來除錯
 
-# 6 back pressure (背壓)
+# 6. back pressure (背壓)
     - 依照本身的接收情況 ( ex API 可承受的壓力 )，來控制接收資料的速率 ( 決定每分鐘打幾次 API ) 
 
     - 控制速率的運算子 => 做流量控制
@@ -36,9 +36,15 @@
         - throttleTime
         - buffer
 
-# 7 switchMap
+# 7. switchMap
     - 將兩個 Observable 物件攤平成一個 Observable 物件
     - 返回一個 Observable 物件
+
+# 8. 
+
+# 9. 例外處理
+
+# 10. 記憶體洩漏
 
 
 

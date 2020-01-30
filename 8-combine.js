@@ -1,41 +1,27 @@
-import { Observable, combineLatest, merge, timer } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { combineLatest, merge, timer, interval } from 'rxjs';
+import { delay, take, map } from 'rxjs/operators';
 
-const randoAsync = Observable.create(o => o.next(Math.random()));
+// -------------------------combineLatest--------------------------------  //
 
-const delayed = randoAsync.pipe(delay(1000))
+let source = interval(1000).pipe(take(6));
+let newValue = interval(2000).pipe(take(4))
 
-const combo = combineLatest([delayed, randoAsync, randoAsync, randoAsync]);
+// 返回一個陣列
+const combineLatested = combineLatest([source, newValue])
 
-combo.subscribe(com => console.log('combined: ', com))
+// 第二個參數放一個函數計算會返回一個計算結果
+const calc = combineLatest([source, newValue], (x, y)=> x + y);
 
-const merged = merge(delayed, randoAsync, randoAsync, randoAsync)
+// 只要 observable 有最新的值就會發出新值
+combineLatested.subscribe(com => console.log("combineLatested : ", com))
+calc.subscribe(calc => console.log("計算後 ",calc))
 
-merged.subscribe(mer => console.log('merged: ', mer))
+// 多個 observable 實例合併成一個，
+// 其中一個 observable 被觸發時就能夠送出元素，這很常用在一個以上的按鈕具有部分相同的行為。
+const merged = merge(
+    source.pipe(map(sour => `${sour} source`)), 
+    newValue.pipe(map(val => `${val} newValue`))
+)
+merged.subscribe(value => console.log("merged:", value))
 
-// ---------------------------------------------------------  //
-// timerOne 在1秒时发出第一个值，然后每4秒发送一次
-const timerOne = timer(1000, 4000);
-// timerTwo 在2秒时发出第一个值，然后每4秒发送一次
-const timerTwo = timer(2000, 4000);
-// timerThree 在3秒时发出第一个值，然后每4秒发送一次
-const timerThree = timer(3000, 4000);
-
-// 當接收到 timer 丟出的最新值，就會把每個 timer (觀察者物件) 的最新值丟出，即任一個 timer 取得最新值用陣列方式丟出
-const combined = combineLatest(timerOne, timerTwo, timerThree);
-
-combined.subscribe(latestValues => {
-    
-    const [timerValOne, timerValTwo, timerValThree] = latestValues;
-    /*
-        示例:
-        timerOne first tick: 'Timer One Latest: 1, Timer Two Latest:0, Timer Three Latest: 0
-        timerTwo first tick: 'Timer One Latest: 1, Timer Two Latest:1, Timer Three Latest: 0
-        timerThree first tick: 'Timer One Latest: 1, Timer Two Latest:1, Timer Three Latest: 1
-    */
-    console.log(
-        `Timer One Latest: ${timerValOne},
-        Timer Two Latest: ${timerValTwo},
-        Timer Three Latest: ${timerValThree}`
-    )}
-);
+// 都可以放置多個 observable

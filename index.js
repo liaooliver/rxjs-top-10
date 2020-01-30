@@ -5,8 +5,8 @@
 // import './4-operators';
 // import './5-tap';
 // import './6-backpressure';
-import './7-switchMap';
-// import './8-combine';
+// import './7-switchMap';
+import './8-combine';
 // import './9-errors';
 // import './10-memoryleaks';
 
