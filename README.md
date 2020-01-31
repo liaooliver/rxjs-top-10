@@ -46,6 +46,8 @@
     - 都會返回一個 Observable 物件
 
 # 8. 組合運算子 combineLatest & merge
+    - combineLatest 接收到最新的值
+    - merge 將多個 observable 合併成一個 observable
 
 # 9. 例外處理
     - 使用 catchError 運算子

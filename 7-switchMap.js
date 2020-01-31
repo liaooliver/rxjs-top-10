@@ -1,6 +1,7 @@
 import { of, range, fromEvent, from, interval } from 'rxjs';
 import { switchMap, concat, delay, take, mapTo } from 'rxjs/operators';
 
+
 const user$ = of({ uid: Math.random() });
 
 const fetchOrders = (userId) => {
@@ -9,7 +10,7 @@ const fetchOrders = (userId) => {
 
 let orders;
 
-// 當一個 Observable 物件要包覆另一個 Observable 物件 ， 並返回一個 Observable 物件
+// 一個 Observable 物件要包覆另一個 Observable 物件 ， 並返回一個 Observable 物件
 user$.subscribe(user => {
     fetchOrders(user.uid).subscribe(data => {
         orders = data;
@@ -17,13 +18,13 @@ user$.subscribe(user => {
     })
 })
 
+// -------------------------switchMap--------------------------------  //
 const orders$ = user$.pipe(
     // switch 交換 return 回一個 Observable 物件
     switchMap(user => fetchOrders(user.uid))
 )
 
 orders$.subscribe(order => console.log(`${order} SwitchMap 合併觀察者物件`))
-
 // 兩種方式皆可行 使用 switchMap 方法比較簡潔
 
 // 產生 1 ~ 6
@@ -61,6 +62,7 @@ const re = interval1.pipe(switchMap((map)=> {
 }))
 re.subscribe(res => console.log("interval ", res))
 
+// -------------------------concat--------------------------------  //
 // concat 按照顺序，前一個 observable 完成了再訂閱下一個 observable 並送出值
 // 依序訂閱 observable，具有先後順序
 const con = interval2.pipe(concat(interval1, event))
