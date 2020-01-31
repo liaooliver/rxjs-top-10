@@ -16,7 +16,7 @@ const calc = combineLatest([source, newValue], (x, y)=> x + y);
 combineLatested.subscribe(com => console.log("combineLatested : ", com))
 calc.subscribe(calc => console.log("計算後 ",calc))
 
-// 多個 observable 實例合併成一個，
+// 多個 observable 實例合併成一個 observable，
 // 其中一個 observable 被觸發時就能夠送出元素，這很常用在一個以上的按鈕具有部分相同的行為。
 const merged = merge(
     source.pipe(map(sour => `${sour} source`)), 

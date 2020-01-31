@@ -36,15 +36,24 @@
         - throttleTime
         - buffer
 
-# 7. switchMap
-    - 將兩個 Observable 物件攤平成一個 Observable 物件
-    - 返回一個 Observable 物件
+# 7. switchMap & concat
+    - switchMap 
+        - 將兩個 Observable 物件攤平成一個 Observable 物件
+        - switchMap 具有取消訂閱的效果
+    - concat
+        - 前一個 observable 完成了再訂閱下一個 observable 並送出值
+        - 依序訂閱 observable，具有先後順序
+    - 都會返回一個 Observable 物件
 
-# 8. 
+# 8. 組合運算子 combineLatest & merge
 
 # 9. 例外處理
+    - 使用 catchError 運算子
+    - 使用觀察者 Observer 的 error 方法
 
 # 10. 記憶體洩漏
+    - 解除訂閱
+    - 設定條件終止訂閱
 
 
 
